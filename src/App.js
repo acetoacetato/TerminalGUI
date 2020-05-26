@@ -1,31 +1,47 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Terminal from './terminal';
-
+import TerminalWrapper from './terminal/terminal-wrapper';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useLocation,
+  useHistory
+} from "react-router-dom";
 
 function App() {
+  // eslint-disable-next-line
+  let history = useHistory();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Terminal/>
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        {/* El switch que sirve de router */}
+        <Switch>
+          <Route exact path="/">
+            <TerminalWrapper/>
+          </Route>
+          <Route path="*">
+            <NoMatch/>
+          </Route>
+        </Switch>
+    </Router>
   );
 
 
+}
+
+function NoMatch(){
+  let location = useLocation();
+  let history = useHistory();
+  return (
+    <div>
+      <h3>
+        Vete de aquí <code>{location.pathname}</code> <button onClick={() => history.push('/')}>Volver</button>
+      </h3>
+    </div>
+  )
 }
 
 export default App;

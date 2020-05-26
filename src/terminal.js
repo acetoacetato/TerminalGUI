@@ -1,46 +1,60 @@
 import React, { Component } from 'react'
 import Cookies from 'universal-cookie'
+import { trackPromise } from 'react-promise-tracker';
 const cookies = new Cookies();
+
+
+
+
+
 class Terminal extends Component {
     constructor(props, context){
         super(props, context);
         this.callApi = this.callApi.bind(this);
-        this.state = {apiResponse : "" };
+        this.state = {apiResponse : "", loaded: false };
     }
 
     async callApi(){
         var data = {
             method: 'POST', 
             mode: 'cors', 
-            //credentials : 'same-origin', 
-            //headers : { 'Allow-Origin': '*' }, 
             body: JSON.stringify({sessid: cookies.get('sessid')}),
             headers:{
                 'Content-Type': 'application/json'
             }
         };
-        await fetch("http://157.245.241.100:9000/terminal/cookie", data)
-            .then(res=>res.json())
-            .then(res => { 
-                console.log(res);
-                this.setState({ apiResponse: res.message });
-                
-                cookies.set('sessid', res.sessid, {path: '/'});
-                console.log(cookies.get('sessid'));
+        trackPromise( 
+            fetch("http://157.245.241.100:9000/terminal/cookie", data)
+                .then(res=>res.json())
+                .then(res => { 
+                    console.log(res);
+                    this.setState({ apiResponse: res.message, loaded: true });
+                    if(cookies.get('sessid') === 'undefined')
+                        cookies.set('sessid', res.sessid, {maxAge : 60 * 60 * 24 * 365});
+                    console.log(cookies.get('sessid'));
 
-            })
+
+                })
+        );
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.callApi();
     }
 
     render(){
-        return (
-            <div className="Terminal">
-                { this.state.apiResponse }
+        console.log(cookies.getAll())
+        if(this.state.loaded === true) {
+            return (
+                <div className="Terminal">
+                    { this.state.apiResponse }
+                </div>
+            );
+        } else{
+            return <div className="Terminal">
+                  <i className="fas fa-spinner fa-spin"> </i> cargando
             </div>
-        );
+        }
     }
 }
 
