@@ -1,15 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import TerminalWrapper from './terminal/terminal-wrapper';
+import PermanentDrawerLeft from './Sidebar';
+import 'fontsource-roboto';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useLocation,
   useHistory
 } from "react-router-dom";
+
 
 function App() {
   // eslint-disable-next-line
@@ -20,7 +21,10 @@ function App() {
         {/* El switch que sirve de router */}
         <Switch>
           <Route exact path="/">
-            <TerminalWrapper/>
+          <TerminalWrapper/>
+          <PermanentDrawerLeft/>
+          
+            
           </Route>
           <Route path="*">
             <NoMatch/>
@@ -36,6 +40,7 @@ function NoMatch(){
   let location = useLocation();
   let history = useHistory();
   return (
+    
     <div>
       <h3>
         Vete de aquí <code>{location.pathname}</code> <button onClick={() => history.push('/')}>Volver</button>

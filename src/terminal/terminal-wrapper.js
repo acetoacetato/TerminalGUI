@@ -10,6 +10,21 @@ const Pre = styled.pre`
     color: green;
     text-align: left;
 `
+const Div = styled.div`
+    overflow-x:hidden
+`
+
+const Wrapper = styled.div`
+    max-width: 600px;
+    height: 630px;
+    max-height: 100vh;
+    text-align: initial;
+    overflow-x: hidden;
+    width: 100%;
+    position: absolute;
+    top: 2%;
+    right: 45%;
+`
 
 
 class TerminalWrapper extends Component{
@@ -40,7 +55,8 @@ class TerminalWrapper extends Component{
                 .then(res => { 
                     console.log(res);
                     this.setState({ apiResponse: res.message, loaded: true, path: res.path });
-                    if(cookies.get('sessid') === 'undefined')
+                    
+                    if(typeof cookies.get('sessid') === 'undefined')
                         cookies.set('sessid', res.sessid, {maxAge : 60 * 60 * 24 * 365});
                 })
         );
@@ -63,17 +79,20 @@ class TerminalWrapper extends Component{
         if(this.state.loaded){
             console.log(this.state.path);
             return(
-                <div className="terminal-container terminal-container-main">
-                    <div className="terminal-holder">
-                        <div className="terminal-content">
-                            <div className="terminal-input-area">
-                                {this.displayData}
+                <Wrapper className="terminal-base">
+                    <div className="terminal-container-wrapper">
+                        <Div className="terminal-container terminal-container-main">
+                        <div className="terminal-holder">
+                            <div className="terminal-content">
+                                <div className="terminal-input-area">
+                                    {this.displayData}
+                                </div>
+                                <TerminalInput resultado={this.handleSubmit} path={this.state.path}/>
                             </div>
-                            <TerminalInput resultado={this.handleSubmit} path={this.state.path}/>
                         </div>
-                    </div>
-                    
+                    </Div>
                 </div>
+                </Wrapper>
             );
         } else{
             return (

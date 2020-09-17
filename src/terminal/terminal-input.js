@@ -47,13 +47,18 @@ class TerminalInput extends Component{
         fetch("http://157.245.241.100:9000/terminal/terminal", data)
             .then(res=>res.json())
             .then(res => { 
-                this.setState({value: '', path: res.path})
-                this.funcion({command: input, output: res.message});
+                this.setState({value: '', path: res.path});
+                let inpt = this.state.path + ' > ' + input;
+                this.funcion({command: inpt, output: res.message});
                 //event.preventDefault();
             })
 
         event.preventDefault();
         
+    }
+
+    componentDidMount(){
+        this.nameInput.focus();
     }
 
     render(){
@@ -63,7 +68,7 @@ class TerminalInput extends Component{
                     <span className="terminal-prompt">
                         {this.state.path + ' >'}
                     </span>
-                    <Input type="text" className="terminal-main-input" value={this.state.value} onChange={this.handleChange} tabIndex="-1" />   
+                    <Input type="text" className="terminal-main-input" value={this.state.value} onChange={this.handleChange} tabIndex="-1" ref={(input) => { this.nameInput = input; }}/>   
                 </Form>)
         );
     }

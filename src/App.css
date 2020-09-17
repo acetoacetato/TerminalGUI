@@ -1,3 +1,26 @@
+/* width */
+div ::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+div ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 3px rgb(78, 78, 78); 
+  border-radius: 2px;
+}
+ 
+/* Handle */
+div ::-webkit-scrollbar-thumb{
+  background: green; 
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+div ::-webkit-scrollbar-thumb:hover {
+  background: #2d9121; 
+}
+
+
 .App {
   text-align: center;
 }
@@ -56,28 +79,28 @@
 }
 
 .terminal-base {
-  width: 100%;
-  max-width: 600px;
-  height: 630px;
-  max-height: 100vh;
-  text-align: initial
+
+  
 }
 
 .terminal-container-wrapper {
   height: 100%;
   -webkit-animation: fadeIn .18s ease-in;
-  animation: fadeIn .18s ease-in
+  animation: fadeIn .18s ease-in;
+  overflow-x: hidden;
 }
 
 .terminal-container-wrapper,.terminal-output-line {
   font-family: Inconsolata,monospace;
   font-size: .9em;
-  color: green
+  color: green;
+  overflow-x: hidden;
 }
 
 .terminal-container {
   display: block;
-  margin: 0 auto
+  margin: 0 auto;
+  overflow-x: hidden;
 }
 
 .terminal-note {
@@ -90,7 +113,8 @@
   -ms-flex-align: center;
   align-items: center;
   -webkit-animation: terminalFadeIn .3s ease-in;
-  animation: terminalFadeIn .3s ease-in
+  animation: terminalFadeIn .3s ease-in;
+  overflow-x: hidden;
 }
 
 @-webkit-keyframes terminalFadeIn {
@@ -123,7 +147,8 @@
 
 .terminal-input-area {
   height: 100%;
-  padding: 3px
+  padding: 3px;
+  overflow-x: hidden;
 }
 
 .terminal-input {
@@ -132,11 +157,13 @@
   -ms-flex-align: center;
   align-items: center;
   padding-top: 15px;
-  padding-bottom: 15px
+  padding-bottom: 15px;
+  overflow-x: hidden;
 }
 
 .terminal-main-input {
-  font-size: .9em
+  font-size: .9em;
+  overflow-x: hidden;;
 }
 
 .terminal-container-main {
@@ -147,11 +174,14 @@
   background: #000;
   max-height: 600px;
   height: 100%;
-  overflow: scroll
+  overflow-x: hidden;
+  overflow: scroll;
+  border-radius: 5px;
 }
 
 .terminal-holder {
-  overflow: auto
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .terminal-prompt {
@@ -166,23 +196,27 @@
   color: green;
   -ms-flex: 1 1 0%;
   flex: 1 1 0%;
-  outline: none
+  outline: none;
+  overflow-x: hidden;
 }
 
 .terminal-output-line {
   margin-top: 10px;
   margin-bottom: 10px;
   white-space: pre-wrap;
-  color: inherit
+  color: inherit;
+  overflow-x: hidden;
 }
 
 .terminal-output-line>pre {
-  background-color: transparent!important
+  background-color: transparent!important;
+  overflow-x: hidden;
 }
 
 .terminal-content {
   padding: 5px 20px;
-  height: 100%
+  height: 100%;
+  overflow-x: hidden;
 }
 
 html {
@@ -197,7 +231,8 @@ html {
   -ms-flex-pack: center;
   justify-content: center;
   -ms-flex-align: center;
-  align-items: center
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .header {
@@ -205,32 +240,9 @@ html {
 }
 
 .terminal {
-  margin-top: 20px
+  margin-top: 20px;
+  overflow-x: hidden;
 }
 
-.forkme {
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  background-color: #fff;
-  overflow: hidden;
-  position: fixed;
-  z-index: 300;
-  width: 240px;
-  right: -60px;
-  top: 46px;
-  border-style: solid;
-  border-color: #7b7979
-}
-
-.forkme a {
-  color: #404040;
-  display: block;
-  font: 13px Helvetica Neue,Arial,sans-serif;
-  margin: .05em 0 .075em;
-  padding: .6em;
-  text-align: center;
-  text-decoration: none
-}
 
 /*# sourceMappingURL=main.20175678.css.map*/
